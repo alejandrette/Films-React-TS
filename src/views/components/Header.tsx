@@ -6,16 +6,16 @@ import { useFilms } from "../../store/store";
 export function Header() {
   const { pathname } = useLocation()
   const chageCategory = useFilms(state => state.chageCategory)
-  const [category, setCategory] = useState<string>('/top_rated')
+  const changeFilmSearch = useFilms(state => state.changeFilmSearch)
+  const [category, setCategory] = useState<string>('top_rated')
+  const [filmSearch, setFilmSearch] = useState<string>('')
   const isHome = useMemo(() => pathname === '/', [pathname])
 
-  useEffect(() => {
-    chageCategory(category)
-  }, [chageCategory, category])
+  useEffect(() => {changeFilmSearch(filmSearch)}, [changeFilmSearch, filmSearch])
+  useEffect(() => {chageCategory(category)}, [chageCategory, category])
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value)
-  }
+  const handleChangeFilm = (e: ChangeEvent<HTMLInputElement>) => setFilmSearch(e.target.value)
+  const handleChangeCategoty = (e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)
 
   return (
     <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-900'}>
@@ -48,6 +48,7 @@ export function Header() {
               <input 
                 type="text" 
                 name="film" 
+                onChange={handleChangeFilm}
                 placeholder="E.g. Blade Runner" 
                 className="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
@@ -60,7 +61,7 @@ export function Header() {
         <div className="bg-yellow-400 p-6 rounded-xl shadow-lg w-48 font-bold space-y-4 mt-4 text-black">
           <label htmlFor="category">Choose Category: </label>
           <select 
-            onChange={handleChange} 
+            onChange={handleChangeCategoty} 
             name="category"
             value={category}
             className="mt-4 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-600 text-white"

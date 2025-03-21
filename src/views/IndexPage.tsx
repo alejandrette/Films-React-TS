@@ -1,12 +1,24 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useFilms } from "../store/store"
 
 export function IndexPage() {
   const fetchFilmsDefault = useFilms(state => state.fetchFilmsDefault)
+  const fetchFilmsSearch = useFilms(state => state.fetchFilmsSearch)
   const films = useFilms(state => state.films)
   const category = useFilms(state => state.category)
+  const filmSearch = useFilms(state => state.filmSearch)
 
-  useEffect(() => {fetchFilmsDefault()}, [fetchFilmsDefault, category])
+  const fetchData = useCallback(async () => {
+    if (filmSearch.trim().length > 0) {
+      await fetchFilmsSearch()
+    } else {
+      await fetchFilmsDefault()
+    }
+  }, [filmSearch, fetchFilmsSearch, fetchFilmsDefault]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, category]);
 
   return (
     <div className="flex justify-center">
