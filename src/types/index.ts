@@ -6,3 +6,8 @@ export type Films = {
   poster_path: string;
   vote_average: number;
 }
+
+export type Categories = {
+  value: string;
+  category: string;
+}

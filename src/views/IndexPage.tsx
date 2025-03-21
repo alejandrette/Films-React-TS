@@ -4,8 +4,9 @@ import { useFilms } from "../store/store"
 export function IndexPage() {
   const fetchFilmsDefault = useFilms(state => state.fetchFilmsDefault)
   const films = useFilms(state => state.films)
+  const category = useFilms(state => state.category)
 
-  useEffect(() => {fetchFilmsDefault()}, [fetchFilmsDefault])
+  useEffect(() => {fetchFilmsDefault()}, [fetchFilmsDefault, category])
 
   return (
     <div className="flex justify-center">

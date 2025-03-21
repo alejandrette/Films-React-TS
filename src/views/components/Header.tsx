@@ -1,10 +1,21 @@
-import { useMemo } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { categories } from "../../data/category";
+import { useFilms } from "../../store/store";
 
 export function Header() {
   const { pathname } = useLocation()
-  
-  const isHome = useMemo(() => pathname === '/', [pathname]) 
+  const chageCategory = useFilms(state => state.chageCategory)
+  const [category, setCategory] = useState<string>('top_rated')
+  const isHome = useMemo(() => pathname === '/', [pathname])
+
+  useEffect(() => {
+    chageCategory(category)
+  }, [chageCategory, category])
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value)
+  }
 
   return (
     <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-900'}>
@@ -32,20 +43,29 @@ export function Header() {
 
         {isHome && (
           <form className="flex mt-10">
-            <div className="p-6 bg-yellow-400 w-64 font-bold rounded-xl shadow-lg space-y-4">
-              <label htmlFor="film" className="block text-black text-lg">🎬 Film:</label>
+            <div className="bg-yellow-400 p-6 rounded-xl shadow-lg w-64 font-bold space-y-4">
+              <label htmlFor="film" className="text-black text-lg block">🎬 Film:</label>
               <input 
                 type="text" 
                 name="film" 
                 placeholder="E.g. Blade Runner" 
-                className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                className="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
-              <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition duration-300">
+              <button className="bg-black rounded-md text-white w-full duration-300 hover:bg-gray-800 py-2 transition">
                 🔍 Search
               </button>
             </div>
-          </form>        
+          </form>
         )}
+        <select 
+          onChange={handleChange} 
+          name="category"
+          value={category}
+          >
+          {categories.map(category => (
+            <option key={category.value} value={category.value}>{category.category}</option>
+          ))}
+        </select>       
       </div>
     </header>
   )
