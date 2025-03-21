@@ -19,7 +19,7 @@ export function Header() {
 
   return (
     <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-900'}>
-      <div className="container mx-auto px-5 py-16">
+      <div className="container mx-auto px-5 py-12">
         <div className="flex justify-between items-center">
           <div>
             <img src='/imdb.svg' alt="imdb" width={200} />
@@ -57,15 +57,21 @@ export function Header() {
             </div>
           </form>
         )}
-        <select 
-          onChange={handleChange} 
-          name="category"
-          value={category}
+        <div className="bg-yellow-400 p-6 rounded-xl shadow-lg w-48 font-bold space-y-4 mt-4 text-black">
+          <label htmlFor="category">Choose Category: </label>
+          <select 
+            onChange={handleChange} 
+            name="category"
+            value={category}
+            className="mt-4 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-600 text-white"
           >
-          {categories.map(category => (
-            <option key={category.value} value={category.value}>{category.category}</option>
-          ))}
-        </select>       
+            {categories.map(category => (
+              <option key={category.value} value={category.value}>
+                {category.category}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </header>
   )
