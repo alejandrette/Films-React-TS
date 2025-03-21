@@ -13,12 +13,12 @@ type FilmsState = {
 
 export const useFilms = create<FilmsState>()(devtools((set, get) => ({
   films: [],
-  category: 'top_rated',
+  category: '',
   fetchFilmsDefault: async () => {
     try {
       const category = get().category;
       
-      const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${import.meta.env.VITE_API_KEY_TMDB}`
+      const url = `https://api.themoviedb.org/3/movie${category}?api_key=${import.meta.env.VITE_API_KEY_TMDB}`
       console.log("Fetching from:", url);
       
       const { data: { results } } = await axios.get(url)

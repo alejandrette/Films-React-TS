@@ -6,7 +6,7 @@ import { useFilms } from "../../store/store";
 export function Header() {
   const { pathname } = useLocation()
   const chageCategory = useFilms(state => state.chageCategory)
-  const [category, setCategory] = useState<string>('top_rated')
+  const [category, setCategory] = useState<string>('/top_rated')
   const isHome = useMemo(() => pathname === '/', [pathname])
 
   useEffect(() => {
