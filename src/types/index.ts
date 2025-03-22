@@ -11,3 +11,8 @@ export type Categories = {
   value: string;
   category: string;
 }
+
+export type MediaTypes = {
+  value: string;
+  mediaType: string;
+}

@@ -6,16 +6,20 @@ import { Films } from "../types";
 type FilmsState = {
   films: Films[];
   category: string;
+  filmSearch: string;
+  mediaType: string;
   fetchFilmsDefault: () => Promise<void>;
   chageCategory: (category: string) => void;
-  filmSearch: string;
   changeFilmSearch: (filmSearch: string) => void;
   fetchFilmsSearch: () => Promise<void>;
+  chageMediaType: (mediaType: string) => void;
 }
 
 export const useFilms = create<FilmsState>()(devtools((set, get) => ({
   films: [],
   category: '',
+  filmSearch: '',
+  mediaType: '',
   fetchFilmsDefault: async () => {
     try {
       const category = get().category;
@@ -30,14 +34,14 @@ export const useFilms = create<FilmsState>()(devtools((set, get) => ({
   chageCategory: async (category) => {
     set({ category })
   },
-  filmSearch: '',
   changeFilmSearch: async (filmSearch) => {
     set({ filmSearch })
   },
   fetchFilmsSearch: async () => {
     try {
-      const filmSearch = get().filmSearch.trim();      
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY_TMDB}&query=${filmSearch}`
+      const filmSearch = get().filmSearch.trim()
+      const mediaType = get().mediaType
+      const url = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${import.meta.env.VITE_API_KEY_TMDB}&query=${filmSearch}`
       
       const { data: { results } } = await axios.get(url)
       set({ films: results })
@@ -45,4 +49,7 @@ export const useFilms = create<FilmsState>()(devtools((set, get) => ({
       console.error(error)
     }
   },
+  chageMediaType: async (mediaType) => {
+    set({ mediaType })
+  }
 })))

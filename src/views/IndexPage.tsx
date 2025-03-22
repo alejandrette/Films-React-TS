@@ -6,6 +6,7 @@ export function IndexPage() {
   const fetchFilmsSearch = useFilms(state => state.fetchFilmsSearch)
   const films = useFilms(state => state.films)
   const category = useFilms(state => state.category)
+  const mediaType = useFilms(state => state.mediaType)
   const filmSearch = useFilms(state => state.filmSearch)
 
   const fetchData = useCallback(async () => {
@@ -17,8 +18,8 @@ export function IndexPage() {
   }, [filmSearch, fetchFilmsSearch, fetchFilmsDefault]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData, category]);
+    fetchData()
+  }, [fetchData, category, mediaType]);
 
   return (
     <div className="flex justify-center">
