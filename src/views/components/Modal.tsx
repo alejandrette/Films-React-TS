@@ -2,6 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useFilms } from "../../store/store";
 import { Films } from "../../types";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css'
 
 type ModaProps= {
   film?: Films | null;
@@ -72,7 +74,16 @@ export function Modal({ film }: ModaProps) {
 
               <div className="flex flex-wrap justify-between">
                 <div>
-                  circulo
+                <CircularProgressbar
+                  value={film.vote_average}
+                  maxValue={10}
+                  styles={buildStyles({
+                    pathColor: `${film.vote_average === 100 ? '#be185d' : '#14b8a6'}`,
+                    trailColor: '#F5F5F5',
+                    textColor: `${film.vote_average === 100 ? '#be185d' : '#14b8a6'}`,
+                  })}
+                  text={`${film.vote_average.toFixed(2)}%`}
+                />
                 </div>
 
                 <div>
