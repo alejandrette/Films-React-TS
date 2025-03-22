@@ -52,7 +52,7 @@ export function Header() {
         </div>
 
         {isHome && (
-          <form className="flex mt-10">
+          <form className="flex mt-10" onSubmit={e => e.preventDefault()}>
             <div className="bg-yellow-400 p-6 rounded-xl shadow-lg w-64 font-bold space-y-4">
               <label htmlFor="film" className="text-black text-lg block">🎬 Film:</label>
               <input 

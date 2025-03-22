@@ -8,11 +8,14 @@ type FilmsState = {
   category: string;
   filmSearch: string;
   mediaType: string;
+  isOpen: boolean;
   fetchFilmsDefault: () => Promise<void>;
   chageCategory: (category: string) => void;
   changeFilmSearch: (filmSearch: string) => void;
   fetchFilmsSearch: () => Promise<void>;
   chageMediaType: (mediaType: string) => void;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
 export const useFilms = create<FilmsState>()(devtools((set, get) => ({
@@ -20,6 +23,7 @@ export const useFilms = create<FilmsState>()(devtools((set, get) => ({
   category: '',
   filmSearch: '',
   mediaType: '',
+  isOpen: false,
   fetchFilmsDefault: async () => {
     try {
       const category = get().category;
@@ -51,5 +55,11 @@ export const useFilms = create<FilmsState>()(devtools((set, get) => ({
   },
   chageMediaType: async (mediaType) => {
     set({ mediaType })
+  },
+  openModal: async () => {
+    set({ isOpen: true })
+  },
+  closeModal: async () => {
+    set({ isOpen: false })
   }
 })))
