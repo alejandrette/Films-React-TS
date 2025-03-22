@@ -53,15 +53,14 @@ export function Modal({ film }: ModaProps) {
                 <p className="text-gray-600 mr-2">
                   {isDescriptionExpanded
                     ? film?.overview
-                    : `${film?.overview?.slice(0, 150)}...`}
+                    : `${film?.overview?.slice(0, 120)}... `}
+                  <button
+                    onClick={toggleDescription}
+                    className="text-blue-500"
+                  >
+                    {isDescriptionExpanded ? "Show less" : "Learn more"}
+                  </button>
                 </p>
-
-                <button
-                  onClick={toggleDescription}
-                  className="text-blue-500"
-                >
-                  {isDescriptionExpanded ? "Show less" : "Learn more"}
-                </button>
 
               <div className="flex justify-center w-full">
                 <img
