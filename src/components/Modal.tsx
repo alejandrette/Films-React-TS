@@ -72,7 +72,7 @@ export function Modal({ film }: ModaProps) {
                 />
               </div>
 
-              <div className="flex flex-wrap justify-between">
+              <div className="flex flex-wrap justify-between mt-5">
                 <div style={{ position: "relative", width: 100, height: 100 }}>
                   <svg style={{ position: "absolute", width: 0, height: 0 }}>
                     <defs>

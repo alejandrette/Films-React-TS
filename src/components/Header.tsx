@@ -58,6 +58,7 @@ export function Header() {
               <input 
                 type="text" 
                 name="film" 
+                value={filmSearch}
                 onChange={handleChangeFilm}
                 placeholder="E.g. Blade Runner" 
                 className="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
