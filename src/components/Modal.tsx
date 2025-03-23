@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { useFilms } from "../../store/store";
-import { Films } from "../../types";
+import { useFilms } from "../store/store";
+import { Films } from "../types";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css'
 
@@ -33,11 +33,11 @@ export function Modal({ film }: ModaProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-50" />
+          <div className="bg-black bg-opacity-50 fixed inset-0" />
         </Transition.Child>
 
         {/* Contenido del modal */}
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="flex justify-center fixed inset-0 items-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -47,7 +47,7 @@ export function Modal({ film }: ModaProps) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Panel className="align-middle bg-gray-800 p-6 rounded-lg shadow-xl text-left w-full max-w-md overflow-hidden transform transition-all">
               <Dialog.Title as="h2" className="text-xl font-bold">
                 {film?.title}
               </Dialog.Title>
@@ -66,7 +66,7 @@ export function Modal({ film }: ModaProps) {
 
               <div className="flex justify-center w-full">
                 <img
-                  className="mt-4 max-w-xs rounded"
+                  className="rounded max-w-xs mt-4"
                   src={`https://image.tmdb.org/t/p/w500${film?.poster_path}`}
                   alt={film?.title}
                 />
@@ -93,7 +93,7 @@ export function Modal({ film }: ModaProps) {
                 <div>
                   <button
                     onClick={closeModal}
-                    className="mt-4 w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    className="bg-red-500 rounded text-white w-full hover:bg-red-600 mt-4 px-4 py-2"
                   >
                     Close
                   </button>

@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { categories } from "../../data/category";
-import { useFilms } from "../../store/store";
-import { mediaTypes } from "../../data/mediaType";
+import { categories } from "../data/category";
+import { useFilms } from "../store/store";
+import { mediaTypes } from "../data/mediaType";
 
 export function Header() {
   const { pathname } = useLocation()
@@ -67,7 +67,7 @@ export function Header() {
                 onChange={handleChangeMediaType} 
                 name="media_type"
                 disabled={!isEmpty}
-                className="mt-4 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-600 text-white"
+                className="bg-gray-800 border border-gray-600 p-2 rounded-lg shadow-sm text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
               >
                 {mediaTypes.map(type => (
                   <option key={type.value} value={type.value}>{type.mediaType}</option>
@@ -78,7 +78,8 @@ export function Header() {
                 onChange={handleChangeCategoty} 
                 name="category"
                 value={category}
-                className="mt-4 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-600 text-white"
+                disabled={isEmpty}
+                className="bg-gray-800 border border-gray-600 p-2 rounded-lg shadow-sm text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
               >
                 {categories.map(category => (
                   <option key={category.value} value={category.value}>
