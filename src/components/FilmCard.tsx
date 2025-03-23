@@ -11,6 +11,7 @@ type FilmCardProps= {
 
 export function FilmCard({ film, setSelectedFilm }: FilmCardProps) {
   const openModal = useFilms((state) => state.openModal)
+  const matchedMediaType = mediaTypes.find(mediaType => mediaType.value === film.media_type)
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-sm max-w-[342px]">
@@ -33,9 +34,9 @@ export function FilmCard({ film, setSelectedFilm }: FilmCardProps) {
             </button>
           </div>
 
-          {mediaTypes.find(mediaType => mediaType.value === film.media_type) && (
+          {matchedMediaType && (
           <div className={`flex items-center px-3 py-1 rounded-lg text-white text-xs font-semibold ${film.media_type === 'movie' ? 'bg-orange-500' : 'bg-purple-500'}`}>
-            {mediaTypes.find(mediaType => mediaType.value === film.media_type)?.mediaType}
+            {matchedMediaType?.mediaType}
           </div>
           )}
         </div>

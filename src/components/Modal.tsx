@@ -73,17 +73,29 @@ export function Modal({ film }: ModaProps) {
               </div>
 
               <div className="flex flex-wrap justify-between">
-                <div>
-                <CircularProgressbar
-                  value={film.vote_average}
-                  maxValue={10}
-                  styles={buildStyles({
-                    pathColor: `${film.vote_average === 100 ? '#be185d' : '#14b8a6'}`,
-                    trailColor: '#F5F5F5',
-                    textColor: `${film.vote_average === 100 ? '#be185d' : '#14b8a6'}`,
-                  })}
-                  text={`${film.vote_average.toFixed(2)}%`}
-                />
+                <div style={{ position: "relative", width: 100, height: 100 }}>
+                  <svg style={{ position: "absolute", width: 0, height: 0 }}>
+                    <defs>
+                    <linearGradient id="gradientProgress" x1="50%" y1="0%" x2="50%" y2="120%">
+                      <stop offset="0%" stopColor="#991b1b" /> {/* Rojo */}
+                      <stop offset="40%" stopColor="#15803d" /> {/* Verde */}
+                      <stop offset="60%" stopColor="#0369a1" /> {/* Azul */}
+                      <stop offset="90%" stopColor="#a855f7" /> {/* Morado */}
+                    </linearGradient>
+                    </defs>
+                  </svg>
+                  <CircularProgressbar
+                    value={film.vote_average}
+                    text={`${film.vote_average.toFixed(2)}%`}
+                    maxValue={10}
+                    circleRatio={0.75}
+                    styles={buildStyles({
+                      pathColor: "url(#gradientProgress)",
+                      trailColor: "#F5F5F5",
+                      textColor: "#fff",
+                      rotation: 1 / 2 + 1 / 8,
+                    })}
+                  />
                 </div>
 
                 <div>
