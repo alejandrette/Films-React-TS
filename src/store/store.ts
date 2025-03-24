@@ -65,5 +65,5 @@ export const useFilms = create<FilmsState>()(
         set({ isOpen: false })
       }
     }),
-    { name: "films-storage" }
+  { name: "films-storage" }
 ))

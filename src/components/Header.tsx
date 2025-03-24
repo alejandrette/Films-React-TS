@@ -22,10 +22,7 @@ export function Header() {
   const handleChangeCategoty = (e: ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)
   const handleChangeMediaType = (e: ChangeEvent<HTMLSelectElement>) => setMediaType(e.target.value)
 
-  const isEmpty = useMemo(() => filmSearch.length > 0, [filmSearch])
-
-  console.log(isEmpty);
-  
+  const isEmpty = useMemo(() => filmSearch.length > 0, [filmSearch])  
 
   return (
     <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-900'}>
