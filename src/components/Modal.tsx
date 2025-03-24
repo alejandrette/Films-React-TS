@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 import { useFilms } from "../store/store";
 import { Films } from "../types";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { FaHeart } from "react-icons/fa";
 import 'react-circular-progressbar/dist/styles.css'
 
 type ModaProps= {
@@ -12,6 +13,9 @@ type ModaProps= {
 export function Modal({ film }: ModaProps) {
   const isOpen = useFilms((state) => state.isOpen);
   const closeModal = useFilms((state) => state.closeModal);
+  const addToFavorite = useFilms((state) => state.addToFavorite);
+  const removeToFavorite = useFilms((state) => state.removeToFavorite);
+  const favorites = useFilms((state) => state.favorites);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   if (!film) return null
@@ -73,7 +77,7 @@ export function Modal({ film }: ModaProps) {
               </div>
 
               <div className="flex flex-wrap justify-between mt-5">
-                <div style={{ position: "relative", width: 100, height: 100 }}>
+                <div style={{ position: "relative", width: 60, height: 60 }}>
                   <svg style={{ position: "absolute", width: 0, height: 0 }}>
                     <defs>
                     <linearGradient id="gradientProgress" x1="50%" y1="0%" x2="50%" y2="120%">
@@ -98,14 +102,28 @@ export function Modal({ film }: ModaProps) {
                   />
                 </div>
 
-                <div>
-                  fav
+                <div className="mt-2">
+                  {favorites.some(f => f.id === film.id) ? (
+                    <button
+                      onClick={() => removeToFavorite(film)}
+                      className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition-all"
+                    >
+                      Remove <FaHeart className="text-white" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => addToFavorite(film)}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg shadow-md hover:bg-red-600 hover:text-white transition-all"
+                    >
+                      Add <FaHeart className="text-red-500 group-hover:text-white transition-all" />
+                    </button>
+                  )}
                 </div>
 
                 <div>
                   <button
                     onClick={closeModal}
-                    className="bg-red-500 rounded text-white w-full hover:bg-red-600 mt-4 px-4 py-2"
+                    className="bg-red-600 rounded text-white w-full hover:bg-red-700 mt-2 px-4 py-2"
                   >
                     Close
                   </button>

@@ -5,6 +5,7 @@ import { Films } from "../types";
 
 type FilmsState = {
   films: Films[];
+  favorites: Films[];
   totalPages: number,
   category: string;
   filmSearch: string;
@@ -17,12 +18,15 @@ type FilmsState = {
   chageMediaType: (mediaType: string) => void;
   openModal: () => void;
   closeModal: () => void;
+  addToFavorite: (film: Films) => void;
+  removeToFavorite: (film: Films) => void;
 }
 
 export const useFilms = create<FilmsState>()(
   persist(
     (set, get) => ({
       films: [],
+      favorites: [],
       totalPages: 1,
       category: '',
       filmSearch: '',
@@ -68,6 +72,13 @@ export const useFilms = create<FilmsState>()(
       },
       closeModal: async () => {
         set({ isOpen: false })
+      },
+      addToFavorite: async (film) => {
+        set((state) => ({favorites: [...state.favorites, film] }))
+      },
+      removeToFavorite: async (film) => {
+        const favorites = get().favorites
+        set({favorites: favorites.filter(favorite => favorite.id !== film.id) })
       }
     }),
   { name: "films-storage" }
