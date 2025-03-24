@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { Films } from "../types";
 
 type FilmsState = {
@@ -18,48 +18,52 @@ type FilmsState = {
   closeModal: () => void;
 }
 
-export const useFilms = create<FilmsState>()(devtools((set, get) => ({
-  films: [],
-  category: '',
-  filmSearch: '',
-  mediaType: '',
-  isOpen: false,
-  fetchFilmsDefault: async () => {
-    try {
-      const category = get().category;
-      const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${import.meta.env.VITE_API_KEY_TMDB}`
-      
-      const { data: { results } } = await axios.get(url)
-      set({ films: results })
-    } catch (error) {
-      console.error(error)
-    }
-  },
-  chageCategory: async (category) => {
-    set({ category })
-  },
-  changeFilmSearch: async (filmSearch) => {
-    set({ filmSearch })
-  },
-  fetchFilmsSearch: async () => {
-    try {
-      const filmSearch = get().filmSearch.trim()
-      const mediaType = get().mediaType
-      const url = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${import.meta.env.VITE_API_KEY_TMDB}&query=${filmSearch}`
-      
-      const { data: { results } } = await axios.get(url)
-      set({ films: results })
-    } catch (error) {
-      console.error(error)
-    }
-  },
-  chageMediaType: async (mediaType) => {
-    set({ mediaType })
-  },
-  openModal: async () => {
-    set({ isOpen: true })
-  },
-  closeModal: async () => {
-    set({ isOpen: false })
-  }
-})))
+export const useFilms = create<FilmsState>()(
+  persist(
+    (set, get) => ({
+      films: [],
+      category: '',
+      filmSearch: '',
+      mediaType: '',
+      isOpen: false,
+      fetchFilmsDefault: async () => {
+        try {
+          const category = get().category;
+          const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${import.meta.env.VITE_API_KEY_TMDB}`
+          
+          const { data: { results } } = await axios.get(url)
+          set({ films: results })
+        } catch (error) {
+          console.error(error)
+        }
+      },
+      chageCategory: async (category) => {
+        set({ category })
+      },
+      changeFilmSearch: async (filmSearch) => {
+        set({ filmSearch })
+      },
+      fetchFilmsSearch: async () => {
+        try {
+          const filmSearch = get().filmSearch.trim()
+          const mediaType = get().mediaType
+          const url = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${import.meta.env.VITE_API_KEY_TMDB}&query=${filmSearch}`
+          
+          const { data: { results } } = await axios.get(url)
+          set({ films: results })
+        } catch (error) {
+          console.error(error)
+        }
+      },
+      chageMediaType: async (mediaType) => {
+        set({ mediaType })
+      },
+      openModal: async () => {
+        set({ isOpen: true })
+      },
+      closeModal: async () => {
+        set({ isOpen: false })
+      }
+    }),
+    { name: "films-storage" }
+))
