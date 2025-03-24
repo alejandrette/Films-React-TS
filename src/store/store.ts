@@ -49,7 +49,8 @@ export const useFilms = create<FilmsState>()(
           const mediaType = get().mediaType
           const url = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${import.meta.env.VITE_API_KEY_TMDB}&query=${filmSearch}`
           
-          const { data: { results } } = await axios.get(url)
+          const { data } = await axios.get(url)
+          const results = Array.isArray(data.results) ? data.results : []
           set({ films: results })
         } catch (error) {
           console.error(error)
