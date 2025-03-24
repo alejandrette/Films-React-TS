@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Dispatch } from "react"
 import { useFilms } from "../store/store";
+import { PulseLoader } from "react-spinners";
 
 type PaginationProps = {
   page: number;
@@ -15,7 +16,7 @@ export function Pagination({ page, setPage }: PaginationProps){
     queryFn: () => fetchFilmsDefault(page)
   })
 
-  if(isLoading) return <p>Cargando</p>
+  if(isLoading) return <PulseLoader color="#9ca3af" />
   if(isError) return <p>Error</p>
 
   return (
