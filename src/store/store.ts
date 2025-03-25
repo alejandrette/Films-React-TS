@@ -1,7 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Films } from "../types";
+import { Films, Notification } from "../types";
 
 type FilmsState = {
   films: Films[];
@@ -11,6 +11,7 @@ type FilmsState = {
   filmSearch: string;
   mediaType: string;
   isOpen: boolean;
+  notification: Notification;
   fetchFilmsDefault: (page: number) => Promise<void>;
   chageCategory: (category: string) => void;
   changeFilmSearch: (filmSearch: string) => void;
@@ -20,6 +21,7 @@ type FilmsState = {
   closeModal: () => void;
   addToFavorite: (film: Films) => void;
   removeToFavorite: (film: Films) => void;
+  setNotification: (payload: Notification) => void;
 }
 
 export const useFilms = create<FilmsState>()(
@@ -32,6 +34,11 @@ export const useFilms = create<FilmsState>()(
       filmSearch: '',
       mediaType: '',
       isOpen: false,
+      notification: { 
+        text: '', 
+        error: false, 
+        show: false
+      },
       fetchFilmsDefault: async (page) => {
         try {
           const category = get().category
@@ -75,10 +82,18 @@ export const useFilms = create<FilmsState>()(
       },
       addToFavorite: async (film) => {
         set((state) => ({favorites: [...state.favorites, film] }))
+        get().setNotification({ text: 'Added to favorites', error: false, show: true })
       },
       removeToFavorite: async (film) => {
         const favorites = get().favorites
         set({favorites: favorites.filter(favorite => favorite.id !== film.id) })
+        get().setNotification({ text: 'Removed from favorites', error: true, show: true })
+      },
+      setNotification: async (payload) => {
+        set({ notification: { text: payload.text, error: payload.error, show: payload.show } })
+        setInterval(() => {
+          set((state) => ({ notification: { ...state.notification, show: false} }))
+        } ,3000)
       }
     }),
   { name: "films-storage" }

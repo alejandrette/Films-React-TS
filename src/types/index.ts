@@ -16,3 +16,9 @@ export type MediaTypes = {
   value: string;
   mediaType: string;
 }
+
+export type Notification = {
+  text: string;
+  error: boolean;
+  show: boolean;
+}
