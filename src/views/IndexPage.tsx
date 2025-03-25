@@ -30,7 +30,7 @@ export function IndexPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="grid grid-cols-4 gap-10 my-4">
+      <div className="grid md:grid-cols-4 gap-10 my-4">
         {films.map((film) => (
           <FilmCard key={film.id} film={film} setSelectedFilm={setSelectedFilm} />
         ))}

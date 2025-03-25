@@ -15,7 +15,7 @@ export function Favorites() {
           <p className="text-lg font-semibold text-gray-600">There are no movies in favorites</p>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-10 my-4">
+        <div className="grid md:grid-cols-4 gap-10 my-4">
           {favorites.map((film) => (
             <FilmCard key={film.id} film={film} setSelectedFilm={setSelectedFilm} />
           ))}

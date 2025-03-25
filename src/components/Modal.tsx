@@ -27,7 +27,6 @@ export function Modal({ film }: ModaProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>
-        {/* Fondo oscuro del modal */}
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -40,7 +39,6 @@ export function Modal({ film }: ModaProps) {
           <div className="bg-black bg-opacity-50 fixed inset-0" />
         </Transition.Child>
 
-        {/* Contenido del modal */}
         <div className="flex justify-center fixed inset-0 items-center">
           <Transition.Child
             as={Fragment}
@@ -51,7 +49,7 @@ export function Modal({ film }: ModaProps) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="align-middle bg-gray-800 p-6 rounded-lg shadow-xl text-left w-full max-w-md overflow-hidden transform transition-all">
+            <Dialog.Panel className="align-middle bg-gray-800 p-6 rounded-lg shadow-xl text-left w-80 md:w-full max-w-md overflow-hidden transform transition-all">
               <Dialog.Title as="h2" className="text-xl font-bold">
                 {film?.title}
               </Dialog.Title>
@@ -70,7 +68,7 @@ export function Modal({ film }: ModaProps) {
 
               <div className="flex justify-center w-full">
                 <img
-                  className="rounded max-w-xs mt-4"
+                  className="rounded w-40 md:w-80 mt-4"
                   src={`https://image.tmdb.org/t/p/w500${film?.poster_path}`}
                   alt={film?.title}
                 />

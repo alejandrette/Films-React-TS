@@ -32,7 +32,7 @@ export function Header() {
             <img src='/imdb.svg' alt="imdb" width={200} />
           </div>
 
-          <nav className="flex gap-4">
+          <nav className="flex flex-col md:flex-row gap-4">
             <NavLink
               to='/' 
               className={({isActive}) => isActive ? 'text-yellow-400 uppercase font-bold' : 'text-white uppercase font-bold'}
