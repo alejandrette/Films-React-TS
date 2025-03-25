@@ -1,54 +1,107 @@
-# React + TypeScript + Vite
+# 🎬 Film Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenido a **Film Finder**, una aplicación web para buscar y consultar información sobre películas y series. 🎥✨
 
-Currently, two official plugins are available:
+## 🔗 Demo en Vivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Prueba la aplicación en vivo haciendo clic en el siguiente enlace:
 
-## Expanding the ESLint configuration
+🔗 [Demo en vivo](https://films-alejandrette.netlify.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ Tecnologías Utilizadas
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **React ⚛️**: Biblioteca para construir interfaces de usuario interactivas y dinámicas.
+- **TypeScript 📝**: Mejora la seguridad y mantenibilidad del código mediante tipado estático.
+- **Zustand 🧩**: Librería ligera para gestionar el estado global de la aplicación.
+- **Axios 🔄**: Cliente HTTP para realizar solicitudes a la API de The Movie Database (TMDb).
+- **Tailwind CSS 🎨**: Framework de diseño para crear una interfaz moderna y responsiva.
+
+## 🌍 Características
+
+✔ **Búsqueda de Películas y Series** 🎬  
+Consulta una lista de películas y series según categorías o búsqueda por nombre.
+
+✔ **Favoritos** ⭐  
+Añade tus películas o series favoritas a tu lista personalizada.
+
+✔ **Gestión del Estado con Zustand** 🔄  
+La aplicación utiliza **Zustand** para manejar el estado global de las películas, favoritos y notificaciones.
+
+✔ **Diseño Responsivo** 📱💻  
+Adaptado para funcionar en dispositivos móviles, tabletas y escritorios.
+
+## 📦 Instalación y Uso
+
+- 1️ Clona el repositorio
+
+```bash
+git clone https://github.com/tu_usuario/Film-Finder.git  
+cd Film-Finder
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 2️ Instala las dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+- 3️ Ejecuta la aplicación
+
+```bash
+npm run dev
+```
+
+La aplicación se ejecutará en `http://localhost:3000` 🚀
+
+### 📑 Funcionamiento de la Aplicación
+
+- 1️ **Buscar Películas o Series**  
+  Utiliza el campo de búsqueda para encontrar tus películas o series favoritas.
+
+- 2️ **Ver Detalles**  
+  Haz clic en cualquier película o serie para ver más detalles, como sinopsis, clasificación y más.
+
+- 3️ **Añadir a Favoritos**  
+  Agrega tus títulos favoritos para consultarlos más fácilmente.
+
+### 📚 Gestión de Estado con Zustand
+
+La aplicación utiliza Zustand para manejar el estado global de las películas y favoritos. Aquí te dejo un ejemplo de cómo se utiliza Zustand para gestionar los estados de las películas:
+
+```ts
+export const useFilms = create<FilmsState>((set) => ({  
+  films: [],  
+  favorites: [],  
+  totalPages: 1,  
+  category: '',  
+  filmSearch: '',  
+  mediaType: '',  
+  notification: { text: '', error: false, show: false },  
+  fetchFilms: async (page) => {  
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=API_KEY&page=${page}`;  
+    const { data } = await axios.get(url);  
+    set({ films: data.results, totalPages: data.total_pages });  
+  },  
+  addToFavorite: (film) => {  
+    set((state) => ({ favorites: [...state.favorites, film] }));  
+  },  
+  removeFromFavorite: (film) => {  
+    set((state) => ({  
+      favorites: state.favorites.filter((favorite) => favorite.id !== film.id),  
+    }));  
+  },  
+}));
+```
+
+### 🚀 Desarrollo Futuro
+
+- 🔹 **Filtrado Avanzado de Películas**  
+  Mejorar la búsqueda con más filtros como género, año, y calificación.
+
+- 🔹 **Historial de Búsquedas**  
+  Guardar el historial de búsquedas realizadas para fácil acceso.
+
+- 🔹 **Notificaciones Personalizadas**  
+  Añadir notificaciones de éxito o error al interactuar con la aplicación.
+
+¡Espero que disfrutes la aplicación y continúes mejorándola! 🚀
