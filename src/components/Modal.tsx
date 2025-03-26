@@ -51,7 +51,11 @@ export function Modal({ film }: ModaProps) {
           >
             <Dialog.Panel className="align-middle bg-gray-800 p-6 rounded-lg shadow-xl text-left w-80 md:w-full max-w-md overflow-hidden transform transition-all">
               <Dialog.Title as="h2" className="text-xl font-bold">
-                {film?.title}
+                {film?.title} - {<span className="text-gray-500">{new Date(film.release_date).toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric'
+                })}</span>}
               </Dialog.Title>
 
                 <p className="text-gray-600 mr-2">

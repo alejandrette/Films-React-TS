@@ -5,6 +5,7 @@ export type Films = {
   media_type: string | undefined;
   poster_path: string;
   vote_average: number;
+  release_date: string;
 }
 
 export type Categories = {
