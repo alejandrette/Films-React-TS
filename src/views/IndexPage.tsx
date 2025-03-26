@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useFilms } from "../store/store"
 import { Modal } from "../components/Modal";
 import { Films } from "../types";
 import { FilmCard } from "../components/FilmCard";
 import { Pagination } from "../components/Pagination";
+import Form from "../components/Form";
+import { useLocation } from "react-router-dom";
 
 export function IndexPage() {
   const fetchFilmsDefault = useFilms(state => state.fetchFilmsDefault)
@@ -12,6 +14,8 @@ export function IndexPage() {
   const category = useFilms(state => state.category)
   const mediaType = useFilms(state => state.mediaType)
   const filmSearch = useFilms(state => state.filmSearch)
+  const { pathname } = useLocation()  
+  const isHome = useMemo(() => pathname === '/', [pathname])
 
   const [selectedFilm, setSelectedFilm] = useState<Films | null>(null)
   const [page, setPage] = useState<number>(1)
@@ -30,6 +34,8 @@ export function IndexPage() {
 
   return (
     <div className="flex flex-col items-center">
+      {isHome && (<Form />)}
+
       <div className="grid md:grid-cols-4 gap-10 my-4">
         {films.map((film) => (
           <FilmCard key={film.id} film={film} setSelectedFilm={setSelectedFilm} />
