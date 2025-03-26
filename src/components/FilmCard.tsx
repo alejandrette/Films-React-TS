@@ -14,10 +14,11 @@ export function FilmCard({ film, setSelectedFilm }: FilmCardProps) {
   const matchedMediaType = mediaTypes.find(mediaType => mediaType.value === film.media_type)
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-sm max-w-[342px]">
-      <a href={`https://image.tmdb.org/t/p/w500${film.poster_path}`} target="_blank">
-        <img className="rounded-t-lg w-full" src={`https://image.tmdb.org/t/p/w342${film.poster_path}`} alt={film.title} />
-      </a>
+    <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-sm max-w-[342px]" onClick={() => {
+      setSelectedFilm(film)
+      openModal()
+    }}>
+      <img className="rounded-t-lg w-full" src={`https://image.tmdb.org/t/p/w342${film.poster_path}`} alt={film.title} />
       <div className="p-5">
         <h5 className="text-2xl text-gray-900 dark:text-white font-bold mb-2 tracking-tight truncate">{film.title}</h5>
         <p className="text-gray-700 dark:text-gray-400 font-normal line-clamp-3 mb-3">{film.overview}</p>
